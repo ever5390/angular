@@ -1,0 +1,91 @@
+<h3>{{title}}</h3>
+<div class="container">
+    <article>
+        <form #ngFormulario="ngForm" (ngSubmit)="ngFormulario.valid && guardarContacto(ngFormulario)" novalidate>
+            <label *ngIf="indice != null" for="codigo">código</label>
+            
+            <p *ngIf="indice != null">
+                <input type="text" name="codigo" #codigo="ngModel" [(ngModel)]="contactoSave.id" (keypress)="soloNumeros($event)" disabled>
+                <!-- <input *ngIf = "indice != null" type="text" name="codigo" [(ngModel)]="contactoEdit.id" required> -->
+            </p>
+            <label for="nombres">nombres y apellidos</label>
+            <p>
+            <input type="text" name="nombres"  #nombres="ngModel" [(ngModel)]="contactoSave.nombres" required>
+                <!-- <input *ngIf = "indice != null" type="text" name="nombres" [(ngModel)]="contactoEdit.nombres" required> -->
+            </p>
+            <span *ngIf = "ngFormulario.submitted && !ngFormulario.form.controls.nombres.valid">*nombres y apellidos is required.<br/><br/></span>
+            <div *ngIf="!ngFormulario.submitted && nombres.invalid && (nombres.dirty || nombres.touched)">
+                <span *ngIf="nombres.errors.required">
+                    *nombres y apellidos is required.<br/><br/>
+                </span>
+            </div>
+
+            <label for="nombres">edad</label>
+            <p>
+                <input type="text" name="edad" maxlength="2" id="edad"  #edad="ngModel"  [(ngModel)]="contactoSave.edad" required (keypress)="soloNumeros($event)">
+                <!-- <input *ngIf = "indice != null" type="text" name="edad" [(ngModel)]="contactoEdit.edad" required> -->
+            </p>
+            <span *ngIf = "ngFormulario.submitted && !ngFormulario.form.controls.edad.valid">*Edad is required.<br/><br/></span>
+            
+            <!-- <div *ngIf="txtNumero.invalid && (txtNumero.dirty || txtNumero.touched)" class="alert alert-danger">
+                    <div *ngIf=" denuncianteClon.numeroDocumento!= null && denuncianteClon.numeroDocumento.length == 0" class="ui-messages-error-cnm ui-corner-all">Debe ingresar un {{denuncianteClon.tipoDocumento}} para la búsqueda</div>
+                    <div *ngIf="txtNumero.errors.minlength || txtNumero.errors.maxlength" class="ui-messages-error-cnm ui-corner-all">Debe ingresar {{longitudDoc}} caracteres para la búsqueda</div>
+                </div> -->
+
+            <div *ngIf="!ngFormulario.submitted && edad.invalid && (edad.dirty || edad.touched)">
+                <span *ngIf="edad.errors.required">
+                    *Edad is required.<br/><br/>
+                </span>
+                <!-- <div *ngIf="edad.errors.minlength || edad.errors.maxlength">
+                    Edad must be at least 2 characters long.
+                </div> -->
+            </div>
+            
+            <label for="cargo">cargo</label>
+            <p>
+                <input type="text" name="cargo" #cargo="ngModel" [(ngModel)]="contactoSave.cargo" required>
+            </p>
+            <span *ngIf = "ngFormulario.submitted && !ngFormulario.form.controls.cargo.valid">*cargo is required.<br/><br/></span>
+            <div *ngIf="!ngFormulario.submitted && cargo.invalid && (cargo.dirty || cargo.touched)">
+                <span *ngIf="cargo.errors.required">
+                    *cargo is required.<br/><br/>
+                </span>
+            </div>
+            <p>
+                <!-- <input type="checkbox"  value="{{estadoContratado}}" checked="estadoContratado" (click)="check()" > -->
+                <input type="checkbox" [checked]="estadoContratado" (change)="check()" /> 
+                <label *ngIf="estadoContratado" style = "display: inline">contratado</label>
+                <label *ngIf="!estadoContratado" style = "display: inline">sin contrato</label>
+                <!-- <label *ngIf = "contactoSave.contratado">contratado</label><label *ngIf = "!contactoSave.contratado">no contratado</label> -->
+                <!-- <input *ngIf = "indice == null" type="text" name="contratado" [(ngModel)]="contactoSave.contratado" >
+                <input *ngIf = "indice != null" type="text" name="contratado" [(ngModel)]="contactoEdit.contratado" > -->
+            </p>
+            <p>
+                <input type="submit" value="_Guardar" />
+            </p>
+        </form>
+    </article>
+    <article class = "bloque-lista">
+        <table>
+            <thead>
+                <th>codigo</th>
+                <th>nombres y apellidos</th>
+                <th>edad</th>
+                <th>cargo</th>
+                <th>estado contratado</th>
+                <th>acciones</th>
+            </thead>
+            <tbody *ngFor = "let contact of listaContactos; let i = index">
+                <td>{{contact.id}}</td>
+                <td>{{contact.nombres}}</td>
+                <td>{{contact.edad}}</td>
+                <td>{{contact.cargo}}</td>
+                <td>
+                    <label style="font-weight: 100" *ngIf="contact.contratado">contratado</label>
+                    <label style="font-weight: 100" *ngIf="!contact.contratado">sin contrato</label>
+                </td>
+                <td><button (click)="borrarContacto(i)">_eliminar</button><button (click)="ubicarContacto(i, contact)">_editar</button></td>
+            </tbody>
+        </table>
+    </article>
+</div>

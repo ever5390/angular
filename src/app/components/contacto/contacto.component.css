@@ -1,0 +1,21 @@
+article {
+    float: left;
+}
+
+.bloque-lista {
+    margin-left: 20px;
+}
+
+span {
+    color: red;
+    
+}
+
+label {
+    font-weight: bold;
+    display: block;
+}
+
+table {
+    text-align: center;
+}
