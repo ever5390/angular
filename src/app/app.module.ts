@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+// import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+
 /* importamos todos los componentes que creemos*/
 import { EmpleadoComponent } from './components/empleado/empleado.component';
 import { HomeComponent } from './components/home/home.component';
@@ -19,7 +22,9 @@ import { ContactoComponent } from './components/contacto/contacto.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    // HttpClientModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]

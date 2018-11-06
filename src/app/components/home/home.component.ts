@@ -1,8 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HomeServices } from '../../services/home.services';
+
 @Component({
-    selector:'home',
+    selector: 'app-home',
     templateUrl: './home.component.html',
+    providers: [HomeServices]
 })
-export class HomeComponent{
-    title : string = "Pagina Principal";
+export class HomeComponent implements OnInit {
+    title: string;
+
+    constructor(
+        private _homeServices: HomeServices
+    ) {
+        this.title  = 'Pagina Principal';
+    }
+
+    ngOnInit() {
+        this._homeServices.getArticulos().subscribe(
+            result => {
+                console.log(result);
+            },
+            error => {
+                const errorMessage = <any>error;
+                console.log(errorMessage);
+            }
+        );
+    }
+
+
 }
