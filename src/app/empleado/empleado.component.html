@@ -1,0 +1,57 @@
+
+<h3>DIRECTIVA [(ngModel)] importanto FormsModule desde @angular/Forms</h3>
+<div><input type="text" [(ngModel)] = "color" /></div>
+<p [style.border]="color == 'blue' ? '5px solid blue': '2px solid green'"
+   [class.fondoAmarillo] = "color == 'yellow'"
+   [ngClass] = "{
+       fondoAzul: color == 'blue',
+       fondoPink: color == 'pink',
+       fondoRed: color == 'red',
+       letraGrande: 1 == 1
+   }">
+
+   <strong>Color Seleccionado : {{color}}</strong>
+</p>
+
+<div [ngStyle]="{
+    'background' : color,
+    'width' : '200px',
+    'height' : '200px' 
+}">
+
+</div>
+<hr>
+<h3>Colors [ngSwitch] = color - *ngSwitchCase = "'red'" - [ngStyle]</h3>
+<ul [ngSwitch] = "color">
+    <li *ngSwitchCase = "'red'" [ngStyle] = "{'background' : color, 'color' : 'white', 'padding' : '20px'}" >RED</li>
+    <li *ngSwitchCase = "'green'" [ngStyle] = "{'background' : color, 'color' : 'white', 'padding' : '20px'}" >GREEN</li>
+    <li *ngSwitchCase = "'blue'" [ngStyle] = "{'background' : color, 'color' : 'white', 'padding' : '20px'}" >BLUE</li>
+    <li *ngSwitchCase = "'black'" [ngStyle] = "{'background' : color, 'color' : 'white', 'padding' : '20px'}" >BLACK</li>
+
+</ul>
+
+<hr>
+<h2>Empleado</h2>
+<!-- <p>Array tipo any :: > arreglo[1] : {{arreglo[1]}}</p> -->
+<h3>DIRECTIVA : *ngIf & EVENTO: (click)</h3>
+<button *ngIf = "activado == false" (click)= "activar()" >Activar</button>
+<button *ngIf = "activado == true" (click)= "activar()" >Desactivar</button>
+
+<div *ngIf = "activado == true"><br>
+    <span>NOMBRE : {{empleado.nombre}}</span><br>
+    <span>CARGO : {{empleado.cargo}}</span><br>
+    <span>EDAD : {{empleado.edad}}</span><br>
+    <span>CONTRATADO : {{empleado.contratado}}</span>
+</div>
+<hr>
+<h3>DIRECTIVA : *ngFor </h3>
+
+<div *ngFor = "let empleado of trabajadores; let i = index">
+    <strong>Empleado {{i + 1}} </strong><br>
+    <span>NOMBRE : {{empleado.nombre}}</span><br>
+    <span>CARGO : {{empleado.cargo}}</span><br>
+    <span>EDAD : {{empleado.edad}} años</span><br>
+    <span>CONTRATADO : </span>
+    <span *ngIf= "empleado.contratado == true">si </span>
+    <span *ngIf= "empleado.contratado == false">no </span><br><br>
+</div>
